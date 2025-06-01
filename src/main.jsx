@@ -37,9 +37,15 @@ function App() {
           <div className="bg-blue-500 h-4 rounded-full w-1/2 transition-all duration-500"></div>
         </div> */}
 
-        <button className="bg-white text-black px-6 py-3 rounded-full font-semibold shadow hover:bg-gray-200 transition">
+        <button
+          className="bg-[#9ABEE3] text-black px-6 py-2 font-barlow shadow-sm hover:bg-[#8FB5DC] transition"
+          style={{ borderRadius: '0px' }}
+        >
           Notify Me!
         </button>
+{/*         <button className="bg-white text-black px-6 py-3 rounded-full font-semibold shadow hover:bg-gray-200 transition">
+          Notify Me!
+        </button> */}
       </div>
     </div>
   );
