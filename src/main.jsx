@@ -38,11 +38,20 @@ function App() {
         </div> */}
 
         <button
-          className="bg-[#AFBDD6] text-black px-6 py-2 font-barlow shadow-sm hover:bg-[#49586D^] transition"
+          href="#"
+          role="button"
+          aria-label="Notify Me!"
+          className="bg-[#9ABEE3] text-black px-6 py-2 font-barlow text-sm text-center shadow-sm hover:bg-[#8FB5DC] transition duration-200"
           style={{ borderRadius: '0px' }}
         >
           Notify Me!
         </button>
+{/*         <button
+          className="bg-[#AFBDD6] text-black px-6 py-2 font-barlow shadow-sm hover:bg-[#49586D^] transition"
+          style={{ borderRadius: '0px' }}
+        >
+          Notify Me!
+        </button> */}
 {/*         <button className="bg-white text-black px-6 py-3 rounded-full font-semibold shadow hover:bg-gray-200 transition">
           Notify Me!
         </button> */}
