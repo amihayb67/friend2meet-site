@@ -19,15 +19,15 @@ function App() {
 
       {/* Overlay Content */}
       <div className="z-10 text-center px-4">
-{/*         <h1 className="text-4xl md:text-6xl font-bold mb-4 font_0">
+        <h1 className="text-4xl md:text-6xl font-bold mb-4 font_0">
           UNDER CONSTRUCTION
-        </h1>         */}
-        <h1 class="font_0 wixui-rich-text__text" style="line-height:1.1em; text-align:center; font-size:100px;">
+        </h1>        
+{/*         <h1 class="font_0 wixui-rich-text__text" style="line-height:1.1em; text-align:center; font-size:100px;">
           <span style="letter-spacing:0.1em;" class="wixui-rich-text__text">
             UNDER<br class="wixui-rich-text__text">
             CONSTRUCTION
           </span>
-        </h1>
+        </h1> */}
           
         <h2 className="text-xl md:text-2xl mb-8 tracking-wide">FUTURE OF DATING</h2>
 
