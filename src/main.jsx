@@ -5,6 +5,8 @@ import { useState } from 'react';
 import NotifyModal from './components/NotifyModal';
 
 function App() {
+  const [showModal, setShowModal] = useState(false);
+  
   return (
     <div className="flex items-center justify-center min-h-screen bg-black text-white relative overflow-hidden">
       {/* Background Video */}
