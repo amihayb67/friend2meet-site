@@ -19,7 +19,10 @@ function App() {
 
       {/* Overlay Content */}
       <div className="z-10 text-center px-4">
-        <h1 className="text-4xl md:text-6xl font-bold mb-6">UNDER CONSTRUCTION</h1>
+        <h1 className="text-4xl md:text-6xl font-bold mb-4 font-montserrat tracking-widest uppercase">
+          UNDER CONSTRUCTION
+        </h1>
+{/*         <h1 className="text-4xl md:text-6xl font-bold mb-6">UNDER CONSTRUCTION</h1> */}
 {/*         <h1 className="text-4xl md:text-6xl font-bold mb-4 font_0">
           UNDER CONSTRUCTION
         </h1>         */}
