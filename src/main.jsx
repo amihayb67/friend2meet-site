@@ -19,7 +19,7 @@ function App() {
 
       {/* Overlay Content */}
       <div className="z-10 text-center px-4">
-        <h1 className="text-[100px] leading-[1.1] text-center tracking-[0.1em] font-barlow">
+        <h1 className="text-[100px] leading-[1.1] text-center tracking-[0.1em] font-barlow mb-6">
           UNDER<br />
           CONSTRUCTION
         </h1>
