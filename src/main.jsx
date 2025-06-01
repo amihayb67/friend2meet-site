@@ -38,7 +38,7 @@ function App() {
         </div> */}
 
         <button
-          className="bg-[#9ABEE3] text-black px-6 py-2 font-barlow shadow-sm hover:bg-[#8FB5DC] transition"
+          className="bg-[#9ABEE3] text-black px-6 py-2 font-barlow shadow-sm hover:bg-[#93A7C2] transition"
           style={{ borderRadius: '0px' }}
         >
           Notify Me!
