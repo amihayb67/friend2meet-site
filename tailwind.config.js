@@ -9,11 +9,14 @@ module.exports = {
         montserrat: ['Montserrat', 'sans-serif'],
       },
     },
-  },
-  theme: {
     extend: {
       fontFamily: {
         barlow: ['"Barlow Condensed"', 'sans-serif'],
+      },
+    },
+    extend: {
+      fontFamily: {
+        opensanscond: ['"Open Sans Condensed"', 'sans-serif'],
       },
     },
   },
