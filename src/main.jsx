@@ -8,6 +8,8 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   
   return (
+    {showModal && <NotifyModal onClose={() => setShowModal(false)} />}
+
     <div className="flex items-center justify-center min-h-screen bg-black text-white relative overflow-hidden">
       {/* Background Video */}
       <video
@@ -41,7 +43,34 @@ function App() {
           <div className="bg-blue-500 h-4 rounded-full w-1/2 transition-all duration-500"></div>
         </div> */}
 
-    <div className="mt-24">
+        <div className="mt-24 flex justify-center">
+          <button
+            onClick={() => setShowModal(true)}
+            role="button"
+            aria-label="Notify Me!"
+            className="font-opensanscond text-[15px] tracking-[0.05em] px-6 py-2 flex items-center justify-center transition-colors duration-200"
+            style={{
+              backgroundColor: '#9abee3',
+              color: '#1a1a1a',
+              borderRadius: '0px',
+              minHeight: '42px',
+              minWidth: '160px',
+              fontWeight: 300,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#41566b';
+              e.currentTarget.style.color = '#ffffff';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = '#9abee3';
+              e.currentTarget.style.color = '#1a1a1a';
+            }}
+          >
+            <span className="pointer-events-none">Notify Me!</span>
+          </button>
+        </div>
+        
+{/*     <div className="mt-24">
       <div className="flex justify-center">
         <button
           href="#"
@@ -68,24 +97,8 @@ function App() {
           <span className="pointer-events-none">Notify Me!</span>
         </button>
       </div>
-    </div>
+    </div> */}
         
-{/* <div className="flex justify-center">
-  <a
-    href="#"
-    role="button"
-    aria-label="Notify Me!"
-    className="font-barlow text-[15px] tracking-wide text-[#1a1a1a] px-6 py-2 flex items-center justify-center transition"
-    style={{
-      backgroundColor: '#9abee3',
-      borderRadius: '0px',
-      minHeight: '42px',
-      minWidth: '160px',
-    }}
-  >
-    <span className="pointer-events-none">Notify Me!</span>
-  </a>
-</div> */}
 {/*         <button
           className="bg-[#AFBDD6] text-black px-6 py-2 font-barlow shadow-sm hover:bg-[#49586D^] transition"
           style={{ borderRadius: '0px' }}
