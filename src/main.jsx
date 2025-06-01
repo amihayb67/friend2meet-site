@@ -37,31 +37,32 @@ function App() {
           <div className="bg-blue-500 h-4 rounded-full w-1/2 transition-all duration-500"></div>
         </div> */}
 
-      <div className="flex justify-center">
-        <button
-          href="#"
-          role="button"
-          aria-label="Notify Me!"
-          className="font-barlow text-[15px] tracking-wide px-6 py-2 flex items-center justify-center transition-colors duration-200"
-          style={{
-            backgroundColor: '#9abee3',
-            color: '#1a1a1a',
-            borderRadius: '0px',
-            minHeight: '42px',
-            minWidth: '160px',
-          }}
-          onMouseEnter={e => {
-            e.currentTarget.style.backgroundColor = '#41566b';
-            e.currentTarget.style.color = '#ffffff';
-          }}
-          onMouseLeave={e => {
-            e.currentTarget.style.backgroundColor = '#9abee3';
-            e.currentTarget.style.color = '#1a1a1a';
-          }}
-        >
-          <span className="pointer-events-none">Notify Me!</span>
-        </button>
-      </div>
+    <div className="flex justify-center">
+      <a
+        href="#"
+        role="button"
+        aria-label="Notify Me!"
+        className="font-opensanscond text-[15px] tracking-[0.05em] px-6 py-2 flex items-center justify-center transition-colors duration-200"
+        style={{
+          backgroundColor: '#9abee3',
+          color: '#1a1a1a',
+          borderRadius: '0px',
+          minHeight: '42px',
+          minWidth: '160px',
+          fontWeight: 300,
+        }}
+        onMouseEnter={e => {
+          e.currentTarget.style.backgroundColor = '#41566b';
+          e.currentTarget.style.color = '#ffffff';
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.backgroundColor = '#9abee3';
+          e.currentTarget.style.color = '#1a1a1a';
+        }}
+      >
+        <span className="pointer-events-none">Notify Me!</span>
+      </a>
+    </div>
         
 {/* <div className="flex justify-center">
   <a
