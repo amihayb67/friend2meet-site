@@ -30,9 +30,12 @@ function App() {
         </h2>
 {/*         <h2 className="text-xl md:text-2xl mb-8 tracking-wide">FUTURE OF DATING</h2> */}
 
-        <div className="w-full max-w-md mx-auto bg-gray-800 rounded-full h-4 mb-8">
-          <div className="bg-blue-500 h-4 rounded-full w-1/2 transition-all duration-500"></div>
+        <div className="w-full max-w-md mx-auto rounded-full h-4 mb-8" style={{ backgroundColor: '#FCF5F0' }}>
+          <div className="h-4 rounded-full w-1/2 transition-all duration-500" style={{ backgroundColor: '#9ABEE3' }}></div>
         </div>
+{/*         <div className="w-full max-w-md mx-auto bg-gray-800 rounded-full h-4 mb-8">
+          <div className="bg-blue-500 h-4 rounded-full w-1/2 transition-all duration-500"></div>
+        </div> */}
 
         <button className="bg-white text-black px-6 py-3 rounded-full font-semibold shadow hover:bg-gray-200 transition">
           Notify Me!
