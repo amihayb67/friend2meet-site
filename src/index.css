@@ -7,3 +7,9 @@ body {
   font-family: 'Inter', sans-serif;
   background-color: #000;
 }
+
+.font_0 {
+  font: var(--font_0);
+  color: rgb(var(--color_45));
+  letter-spacing: 0em;
+}
