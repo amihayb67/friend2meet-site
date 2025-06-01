@@ -25,9 +25,11 @@ function App() {
         </h1>
 {/*         <h1 className="text-4xl md:text-6xl font-bold mb-6">UNDER CONSTRUCTION</h1> */}
 
-        <h2 className="text-2xl md:text-3xl tracking-[0.5em] text-center font-barlow mb-8">
+        <div className="text-center font-barlow text-xl mb-8">
+        <span style={{ letterSpacing: '0.5em' }} className="wixui-rich-text__text">
           FUTURE OF DATING
-        </h2>      
+        </span>
+      </div>     
 {/*         <h2 className="text-xl md:text-2xl mb-8 tracking-wide">FUTURE OF DATING</h2> */}
 
         <div className="w-full max-w-md mx-auto bg-gray-800 rounded-full h-4 mb-8">
