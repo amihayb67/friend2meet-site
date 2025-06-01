@@ -37,7 +37,26 @@ function App() {
           <div className="bg-blue-500 h-4 rounded-full w-1/2 transition-all duration-500"></div>
         </div> */}
 
-<div className="flex justify-center">
+        <div className="flex justify-center">
+          <a
+            href="#"
+            role="button"
+            aria-label="Notify Me!"
+            className="font-barlow text-[15px] tracking-wide text-[#1a1a1a] px-6 py-2 flex items-center justify-center transition-colors duration-200"
+            style={{
+              backgroundColor: '#9abee3',
+              borderRadius: '0px',
+              minHeight: '42px',
+              minWidth: '160px',
+            }}
+            onMouseEnter={e => e.currentTarget.style.backgroundColor = '#41566b'}
+            onMouseLeave={e => e.currentTarget.style.backgroundColor = '#9abee3'}
+          >
+            <span className="pointer-events-none">Notify Me!</span>
+          </a>
+        </div>
+        
+{/* <div className="flex justify-center">
   <a
     href="#"
     role="button"
@@ -52,7 +71,7 @@ function App() {
   >
     <span className="pointer-events-none">Notify Me!</span>
   </a>
-</div>
+</div> */}
 {/*         <button
           className="bg-[#AFBDD6] text-black px-6 py-2 font-barlow shadow-sm hover:bg-[#49586D^] transition"
           style={{ borderRadius: '0px' }}
