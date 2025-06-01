@@ -3,5 +3,12 @@ module.exports = {
   theme: {
     extend: {},
   },
+  theme: {
+    extend: {
+      fontFamily: {
+        montserrat: ['Montserrat', 'sans-serif'],
+      },
+    },
+  },
   plugins: [],
 };
