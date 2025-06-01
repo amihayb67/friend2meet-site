@@ -19,7 +19,9 @@ function App() {
 
       {/* Overlay Content */}
       <div className="z-10 text-center px-4">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4">UNDER CONSTRUCTION</h1>
+        <h1 className="text-4xl md:text-6xl font-bold mb-4 font_0">
+          UNDER CONSTRUCTION
+        </h1>        
         <h2 className="text-xl md:text-2xl mb-8 tracking-wide">FUTURE OF DATING</h2>
 
         <div className="w-full max-w-md mx-auto bg-gray-800 rounded-full h-4 mb-8">
