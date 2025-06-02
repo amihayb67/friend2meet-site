@@ -1,112 +1,93 @@
-// main.jsx
-import { useState } from 'react';
-import NotifyModal from './NotifyModal';
+import React, { useState, useEffect } from 'react';
 
-function App() {
-  const [showModal, setShowModal] = useState(false);
+const NotifyModal = ({ onClose }) => {
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleOverlayClick = (e) => {
+    if (e.target.id === 'notify-modal-overlay') {
+      onClose();
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!isValid) {
+      setError('Please type a correct valid email');
+      return;
+    }
+    setSubmitted(true);
+    setError('');
+    // Here you could call an API or email service
+    console.log('Submitted email:', email);
+  };
+
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [onClose]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-black text-white relative overflow-hidden">
-      {showModal && <NotifyModal onClose={() => setShowModal(false)} />}
-
-      {/* Background Video */}
-      <video
-        autoPlay
-        loop
-        muted
-        className="absolute w-full h-full object-cover z-0"
+    <div
+      id="notify-modal-overlay"
+      className="fixed inset-0 bg-black bg-opacity-40 z-50 flex justify-end"
+      onClick={handleOverlayClick}
+    >
+      <div
+        className="bg-white text-black w-[400px] max-w-full h-full p-10 flex flex-col justify-center transition-transform duration-300 shadow-xl"
+        style={{
+          boxShadow: '0 0 30px rgba(0,0,0,0.5)',
+        }}
       >
-        <source src="/video/bg.mp4" type="video/mp4" />
-      </video>
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-6 text-2xl font-light text-gray-600 hover:text-black"
+          aria-label="Close"
+        >
+          ×
+        </button>
 
-      <div className="z-10 text-center w-full px-4">
-        <h1 className="text-[100px] leading-[1.1] text-center tracking-[0.1em] font-barlow">
-          UNDER<br />
-          CONSTRUCTION
-        </h1>
-        <h2 className="text-xl md:text-2xl tracking-[0.5em] text-center font-barlow mt-8 mb-10">
-          FUTURE OF DATING
+        <h2 className="text-xl tracking-widest text-center font-opensanscond mb-6">
+          BE THE FIRST TO KNOW<br />WHEN WE GO LIVE
         </h2>
-        <div className="w-full h-2 bg-gray-700 mb-12">
-          <div
-            className="h-full bg-blue-400 transition-all duration-1000"
-            style={{ width: '75%' }}
-          ></div>
-        </div>
-        <div className="mt-20 flex justify-center">
+
+        <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={`border px-4 py-2 text-sm font-light font-opensanscond tracking-wide focus:outline-none ${
+              error ? 'border-red-500' : 'border-gray-400'
+            }`}
+          />
+
           <button
-            role="button"
-            aria-label="Notify Me!"
-            className="font-opensanscond text-[15px] tracking-[0.05em] px-6 py-2 flex items-center justify-center transition-colors duration-200"
+            type="submit"
+            className="bg-[#9abee3] hover:bg-[#41566b] text-[#1a1a1a] hover:text-white font-opensanscond text-sm tracking-[0.05em] px-6 py-2 transition-colors"
             style={{
-              backgroundColor: '#9abee3',
-              color: '#1a1a1a',
               borderRadius: '0px',
               minHeight: '42px',
               minWidth: '160px',
               fontWeight: 300,
             }}
-            onMouseEnter={e => {
-              e.currentTarget.style.backgroundColor = '#41566b';
-              e.currentTarget.style.color = '#ffffff';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.backgroundColor = '#9abee3';
-              e.currentTarget.style.color = '#1a1a1a';
-            }}
-            onClick={() => setShowModal(true)}
           >
-            <span className="pointer-events-none">Notify Me!</span>
+            Sign Up!
           </button>
-        </div>
+
+          {submitted && (
+            <p className="text-green-600 text-sm font-light">Thanks for submitting!</p>
+          )}
+          {error && <p className="text-red-500 text-sm font-light">{error}</p>}
+        </form>
       </div>
     </div>
   );
-}
+};
 
-export default App;
-
-
-// NotifyModal.jsx
-import { useEffect } from 'react';
-
-export default function NotifyModal({ onClose }) {
-  useEffect(() => {
-    const handleKey = e => e.key === 'Escape' && onClose();
-    window.addEventListener('keydown', handleKey);
-    return () => window.removeEventListener('keydown', handleKey);
-  }, [onClose]);
-
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-start justify-end bg-black bg-opacity-50"
-      onClick={onClose}
-    >
-      <div
-        className="bg-white text-black p-10 pt-8 shadow-lg w-full max-w-md h-full overflow-y-auto relative"
-        onClick={e => e.stopPropagation()}
-      >
-        <button
-          className="absolute top-4 right-4 text-xl text-gray-600 hover:text-black"
-          onClick={onClose}
-        >
-          ×
-        </button>
-        <h3 className="text-lg font-semibold mb-6 tracking-wide">
-          BE THE FIRST TO KNOW WHEN WE GO LIVE
-        </h3>
-        <input
-          type="email"
-          placeholder="Your email"
-          className="w-full border border-gray-300 p-3 mb-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
-        />
-        <button
-          className="bg-blue-600 text-white py-2 px-4 w-full hover:bg-blue-700 transition-colors"
-        >
-          Sign Up
-        </button>
-        <p className="mt-3 text-sm text-green-600">Thanks for submitting!</p>
-      </div>
-    </div>
-  );
-}
+export default NotifyModal;
