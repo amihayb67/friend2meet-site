@@ -47,7 +47,7 @@ const NotifyModal = ({ onClose }) => {
           ×
         </button>
         <div className="h-full flex flex-col items-center justify-center">
-          <h2 className="text-white text-[36px] font-semibold text-center mb-6">
+          <h2 className="text-black text-[36px] font-normal text-center mb-6">
             BE THE FIRST TO KNOW WHEN WE GO LIVE
           </h2>
           <input
