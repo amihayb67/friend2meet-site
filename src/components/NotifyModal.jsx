@@ -1,75 +1,66 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-export default function NotifyModal({ onClose }) {
+const NotifyModal = ({ onClose }) => {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = () => {
-    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (!isValid) {
-      setError(true);
-      return;
-    }
-    setSubmitted(true);
-    setError(false);
-    // Future integration for email service can go here
+  const validateEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  useEffect(() => {
-    const handleClickOutside = e => {
-      if (e.target.id === 'notify-modal-overlay') {
-        onClose();
-      }
-    };
-    window.addEventListener('click', handleClickOutside);
-    return () => window.removeEventListener('click', handleClickOutside);
-  }, [onClose]);
+  const handleSubmit = () => {
+    if (validateEmail(email)) {
+      setSubmitted(true);
+      setError('');
+      // TODO: Add actual submission logic
+    } else {
+      setError('Please type a correct valid email');
+    }
+  };
 
   return (
     <div
-      id="notify-modal-overlay"
-      className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-end"
+      className="fixed top-0 right-0 h-full w-[480px] bg-[#2d3e50] z-50 shadow-lg transition-transform duration-500"
+      style={{ transform: 'translateX(0%)' }}
     >
       <div
-        className="h-full w-[600px] bg-[#d0d7e0] p-10 shadow-xl transform transition-transform duration-300"
-        style={{ transform: 'translateX(0)' }}
-      >
-        <div className="flex justify-end">
-          <button
-            onClick={onClose}
-            className="text-gray-700 hover:text-black text-2xl font-light"
-          >
-            &times;
-          </button>
-        </div>
-        <h2 className="text-4xl font-light text-black mb-8 tracking-wide text-center">
+        className="absolute top-0 left-0 w-screen h-screen bg-black bg-opacity-50"
+        onClick={onClose}
+      ></div>
+
+      <div className="flex flex-col items-center justify-center h-full px-8 relative z-10">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-white text-2xl"
+        >
+          ×
+        </button>
+        <h2 className="text-white text-3xl font-bold mb-8 text-center">
           BE THE FIRST TO KNOW WHEN WE GO LIVE
         </h2>
-        <div className="flex flex-col items-center">
-          <input
-            type="email"
-            placeholder="Enter your email"
-            className={`w-[280px] p-2 mb-4 border rounded ${
-              error ? 'border-red-500' : 'border-gray-300'
-            }`}
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
-          <button
-            onClick={handleSubmit}
-            className="w-[280px] bg-[#41566b] text-white py-2 rounded hover:bg-[#2e3d4b] transition-colors"
-          >
-            Sign Up!
-          </button>
-          {submitted && (
-            <p className="text-green-600 mt-4">Thanks for submitting!</p>
-          )}
-          {error && !submitted && (
-            <p className="text-red-500 mt-2">Please type a correct valid email</p>
-          )}
-        </div>
+        <input
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-[224px] px-4 py-2 mb-4 border border-gray-300 rounded text-black"
+        />
+        <button
+          onClick={handleSubmit}
+          className="w-[224px] bg-[#9abee3] text-black py-2 rounded hover:bg-[#41566b] hover:text-white transition-colors"
+        >
+          Sign Up!
+        </button>
+        {submitted && (
+          <p className="text-green-400 text-sm mt-4">Thanks for submitting!</p>
+        )}
+        {error && (
+          <p className="text-red-500 text-sm mt-4">{error}</p>
+        )}
       </div>
     </div>
   );
-}
+};
+
+export default NotifyModal;
