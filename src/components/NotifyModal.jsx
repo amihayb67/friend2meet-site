@@ -1,94 +1,75 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const NotifyModal = ({ onClose }) => {
+export default function NotifyModal({ onClose }) {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState('');
-  const modalRef = useRef(null);
+  const [error, setError] = useState(false);
 
-  const handleOverlayClick = (e) => {
-    if (e.target.id === 'notify-modal-overlay') {
-      onClose();
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!isValid) {
-      setError('Please type a correct valid email');
+      setError(true);
       return;
     }
     setSubmitted(true);
-    setError('');
-    console.log('Submitted email:', email); // replace with API call
+    setError(false);
+    // Future integration for email service can go here
   };
 
   useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape') onClose();
+    const handleClickOutside = e => {
+      if (e.target.id === 'notify-modal-overlay') {
+        onClose();
+      }
     };
-    window.addEventListener('keydown', handleEscape);
-    return () => window.removeEventListener('keydown', handleEscape);
+    window.addEventListener('click', handleClickOutside);
+    return () => window.removeEventListener('click', handleClickOutside);
   }, [onClose]);
 
   return (
     <div
       id="notify-modal-overlay"
-      className="fixed inset-0 bg-black bg-opacity-40 z-50 flex justify-end"
-      onClick={handleOverlayClick}
+      className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-end"
     >
       <div
-        ref={modalRef}
-        className="bg-[#f3f6f9] text-black w-[600px] max-w-full h-full p-10 flex flex-col justify-center transform transition-transform duration-500 ease-out translate-x-0 shadow-xl"
-        style={{
-          boxShadow: '0 0 30px rgba(0,0,0,0.5)',
-        }}
+        className="h-full w-[600px] bg-[#d0d7e0] p-10 shadow-xl transform transition-transform duration-300"
+        style={{ transform: 'translateX(0)' }}
       >
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-6 text-2xl font-light text-gray-600 hover:text-black"
-          aria-label="Close"
-        >
-          ×
-        </button>
-
-        <h2 className="text-xl tracking-widest text-center font-opensanscond mb-6">
-          BE THE FIRST TO KNOW<br />WHEN WE GO LIVE
+        <div className="flex justify-end">
+          <button
+            onClick={onClose}
+            className="text-gray-700 hover:text-black text-2xl font-light"
+          >
+            &times;
+          </button>
+        </div>
+        <h2 className="text-4xl font-light text-black mb-8 tracking-wide text-center">
+          BE THE FIRST TO KNOW WHEN WE GO LIVE
         </h2>
-
-        <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+        <div className="flex flex-col items-center">
           <input
             type="email"
             placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className={`border px-4 py-2 text-sm font-light font-opensanscond tracking-wide focus:outline-none ${
-              error ? 'border-red-500' : 'border-gray-400'
+            className={`w-[280px] p-2 mb-4 border rounded ${
+              error ? 'border-red-500' : 'border-gray-300'
             }`}
+            value={email}
+            onChange={e => setEmail(e.target.value)}
           />
-
           <button
-            type="submit"
-            className="bg-[#9abee3] hover:bg-[#41566b] text-[#1a1a1a] hover:text-white font-opensanscond text-sm tracking-[0.05em] px-6 py-2 transition-colors"
-            style={{
-              borderRadius: '0px',
-              minHeight: '42px',
-              minWidth: '160px',
-              fontWeight: 300,
-            }}
+            onClick={handleSubmit}
+            className="w-[280px] bg-[#41566b] text-white py-2 rounded hover:bg-[#2e3d4b] transition-colors"
           >
             Sign Up!
           </button>
-
           {submitted && (
-            <p className="text-green-600 text-sm font-light">Thanks for submitting!</p>
+            <p className="text-green-600 mt-4">Thanks for submitting!</p>
           )}
-          {error && <p className="text-red-500 text-sm font-light">{error}</p>}
-        </form>
+          {error && !submitted && (
+            <p className="text-red-500 mt-2">Please type a correct valid email</p>
+          )}
+        </div>
       </div>
     </div>
   );
-};
-
-export default NotifyModal;
+}
