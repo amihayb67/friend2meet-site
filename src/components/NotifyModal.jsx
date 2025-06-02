@@ -1,79 +1,95 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-export default function NotifyModal({ onClose }) {
+const NotifyModal = ({ onClose }) => {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
-
-  const handleSubmit = () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setError('Please type a correct valid email');
-      return;
-    }
-    setError('');
-    setSubmitted(true);
-    // Email sending logic goes here
-  };
+  const modalRef = useRef(null);
 
   const handleOverlayClick = (e) => {
-    if (e.target.id === 'overlay') {
+    if (e.target.id === 'notify-modal-overlay') {
       onClose();
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!isValid) {
+      setError('Please type a correct valid email');
+      return;
+    }
+    setSubmitted(true);
+    setError('');
+    console.log('Submitted email:', email); // replace with API call
+  };
+
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = 'auto';
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') onClose();
     };
-  }, []);
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [onClose]);
 
   return (
     <div
-      id="overlay"
-      className="fixed inset-0 bg-black bg-opacity-40 z-50"
+      id="notify-modal-overlay"
+      className="fixed inset-0 bg-black bg-opacity-40 z-50 flex justify-end"
       onClick={handleOverlayClick}
     >
       <div
-        className="fixed right-0 top-0 h-full shadow-lg p-8 flex flex-col items-center justify-center transition-transform duration-1000 ease-in-out"
-        style={{ width: '600px', backgroundColor: '#76A1D6', transform: 'translateX(0)' }}
+        ref={modalRef}
+        className="bg-[#4CA1D6] text-black w-[600px] max-w-full h-full p-10 flex flex-col justify-center transform transition-transform duration-500 ease-out translate-x-0 shadow-xl"
+        style={{
+          boxShadow: '0 0 30px rgba(0,0,0,0.5)',
+        }}
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-black"
-          style={{ width: '20px', height: '20px', fontSize: '20px' }}
+          className="absolute top-4 right-6 text-gray-600 hover:text-black"
+          aria-label="Close"
+          style={{ width: '20px', height: '20px', fontSize: '20px', lineHeight: '20px' }}
         >
           ×
         </button>
-        <h2
-          className="text-center mb-6"
-          style={{ fontSize: '28px', fontWeight: '400', color: 'black' }}
-        >
-          BE THE FIRST TO KNOW WHEN WE GO LIVE
+
+        <h2 className="text-xl tracking-widest text-center font-opensanscond font-normal mb-6 text-black">
+          BE THE FIRST TO KNOW<br />WHEN WE GO LIVE
         </h2>
-        <input
-          type="email"
-          placeholder="Enter your email"
-          className="p-2 mb-4"
-          style={{ width: '300px' }}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <button
-          onClick={handleSubmit}
-          className="py-2"
-          style={{ width: '300px', backgroundColor: '#1a1a1a', color: 'white', fontWeight: 300 }}
-        >
-          Sign Up!
-        </button>
-        {error && (
-          <p className="text-red-600 mt-4" style={{ width: '300px', textAlign: 'center' }}>{error}</p>
-        )}
-        {submitted && !error && (
-          <p className="text-white mt-4" style={{ width: '300px', textAlign: 'center' }}>Thanks for submitting!</p>
-        )}
+
+        <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={`border px-4 py-2 text-sm font-light font-opensanscond tracking-wide focus:outline-none ${
+              error ? 'border-red-500' : 'border-gray-400'
+            }`}
+          />
+
+          <button
+            type="submit"
+            className="bg-[#9abee3] hover:bg-[#41566b] text-[#1a1a1a] hover:text-white font-opensanscond text-sm tracking-[0.05em] px-6 py-2 transition-colors"
+            style={{
+              borderRadius: '0px',
+              minHeight: '42px',
+              minWidth: '160px',
+              fontWeight: 300,
+            }}
+          >
+            Sign Up!
+          </button>
+
+          {submitted && (
+            <p className="text-green-600 text-sm font-light">Thanks for submitting!</p>
+          )}
+          {error && <p className="text-red-500 text-sm font-light">{error}</p>}
+        </form>
       </div>
     </div>
   );
-}
+};
+
+export default NotifyModal;
