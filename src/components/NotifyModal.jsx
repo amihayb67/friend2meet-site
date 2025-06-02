@@ -57,10 +57,21 @@ const NotifyModal = ({ onClose }) => {
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            title={error || ''}
             className={`w-[300px] p-2 mb-4 text-center border ${
               error ? 'border-red-500' : 'border-gray-300'
             } rounded text-black`}
           />
+          
+{/*           <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={`w-[300px] p-2 mb-4 text-center border ${
+              error ? 'border-red-500' : 'border-gray-300'
+            } rounded text-black`}
+          /> */}
           <button
             onClick={handleSubmit}
             className="w-[300px] py-2 bg-[#1a1a1a] text-white hover:bg-[#333] transition-colors duration-300"
@@ -70,9 +81,9 @@ const NotifyModal = ({ onClose }) => {
           {submitted && (
             <p className="text-white mt-4">Thanks for submitting!</p>
           )}
-          {error && (
+{/*           {error && (
             <p className="text-red-500 mt-4">{error}</p>
-          )}
+          )} */}
         </div>
       </div>
     </div>
