@@ -69,29 +69,12 @@ const NotifyModal = ({ onClose }) => {
             {showTooltip && (
               <div
                 className="absolute left-1/2 transform -translate-x-1/2 text-sm bg-red-600 text-white px-3 py-1 rounded shadow-md z-10 whitespace-nowrap"
-                style={{ bottom: 'calc(100% + 10px)' }} // 10px above the input
+                style={{ bottom: 'calc(100% + 5px)' }} // 10px above the input
               >
                 {error}
               </div>
             )}
-          </div>
-                    
-{/*          <div className="relative inline-block">
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className={`w-[300px] p-2 mb-4 text-center border ${
-              error ? 'border-red-500' : 'border-gray-300'
-            } rounded text-black`}
-          />
-          {showTooltip && (
-            <div className="absolute left-1/2 transform -translate-x-1/2 -top-8 text-sm bg-red-600 text-white px-2 py-1 rounded shadow-lg z-10">
-              {error}
-            </div>
-          )}
-        </div>  */}
+          </div>     
           
 {/*           <div className="relative inline-block">
           <input
