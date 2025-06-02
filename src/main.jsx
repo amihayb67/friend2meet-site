@@ -8,7 +8,8 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   
   return (
-    // {showModal && <NotifyModal onClose={() => setShowModal(false)} />}
+    <>
+     {showModal && <NotifyModal onClose={() => setShowModal(false)} />}
 
     <div className="flex items-center justify-center min-h-screen bg-black text-white relative overflow-hidden">
       {/* Background Video */}
@@ -110,6 +111,7 @@ function App() {
         </button> */}
       </div>
     </div>
+  </>
   );
 }
 
