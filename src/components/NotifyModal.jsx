@@ -5,6 +5,7 @@ const NotifyModal = ({ onClose }) => {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
   const [isVisible, setIsVisible] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
     setTimeout(() => setIsVisible(true), 50); // Trigger transition after mount
@@ -16,12 +17,15 @@ const NotifyModal = ({ onClose }) => {
     if (emailRegex.test(email)) {
       setSubmitted(true);
       setError('');
+      setShowTooltip(false);
     } else {
       setError('Please type a correct valid email');
       setSubmitted(false);
+      setShowTooltip(true);
+      setTimeout(() => setShowTooltip(false), 1500);
     }
   };
-
+  
   const handleOverlayClick = (e) => {
     if (e.target.id === 'notify-modal-overlay') {
       onClose();
@@ -52,7 +56,24 @@ const NotifyModal = ({ onClose }) => {
             BE THE FIRST TO KNOW WHEN WE GO LIVE
           </h2>
 
-          <div className="relative inline-block">
+         <div className="relative inline-block">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={`w-[300px] p-2 mb-4 text-center border ${
+              error ? 'border-red-500' : 'border-gray-300'
+            } rounded text-black`}
+          />
+          {showTooltip && (
+            <div className="absolute left-1/2 transform -translate-x-1/2 -top-8 text-sm bg-red-600 text-white px-2 py-1 rounded shadow-lg z-10">
+              {error}
+            </div>
+          )}
+        </div> 
+          
+{/*           <div className="relative inline-block">
           <input
             type="email"
             placeholder="Enter your email"
@@ -68,7 +89,7 @@ const NotifyModal = ({ onClose }) => {
               {error}
             </div>
           )}
-          </div>
+          </div> */}
           
 {/*           <input
             type="email"
