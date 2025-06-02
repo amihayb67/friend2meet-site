@@ -40,21 +40,20 @@ const NotifyModal = ({ onClose }) => {
     >
       <div
         ref={modalRef}
-        className="bg-[#4CA1D6] text-black w-[600px] max-w-full h-full p-10 flex flex-col justify-center transform transition-transform duration-500 ease-out translate-x-0 shadow-xl"
+        className="bg-[#f3f6f9] text-black w-[600px] max-w-full h-full p-10 flex flex-col justify-center transform transition-transform duration-500 ease-out translate-x-0 shadow-xl"
         style={{
           boxShadow: '0 0 30px rgba(0,0,0,0.5)',
         }}
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-6 text-gray-600 hover:text-black"
+          className="absolute top-4 right-6 text-2xl font-light text-gray-600 hover:text-black"
           aria-label="Close"
-          style={{ width: '20px', height: '20px', fontSize: '20px', lineHeight: '20px' }}
         >
           ×
         </button>
 
-        <h2 className="text-xl tracking-widest text-center font-opensanscond font-normal mb-6 text-black">
+        <h2 className="text-xl tracking-widest text-center font-opensanscond mb-6">
           BE THE FIRST TO KNOW<br />WHEN WE GO LIVE
         </h2>
 
