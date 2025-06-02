@@ -34,7 +34,7 @@ const NotifyModal = ({ onClose }) => {
       className="fixed inset-0 bg-black bg-opacity-50 z-50 flex"
     >
       <div
-        className={`h-full w-[600px] bg-[#94B0DC] p-8 relative transition-transform duration-1000 ease-in-out transform ${
+        className={`h-full w-[600px] bg-[#90b0dc] p-8 relative transition-transform duration-700 ease-in-out transform ${
           isVisible ? 'translate-x-0' : 'translate-x-full'
         }`}
         style={{ marginLeft: 'auto' }}
@@ -44,10 +44,10 @@ const NotifyModal = ({ onClose }) => {
           className="absolute top-4 right-4 text-black"
           style={{ width: '40px', height: '40px', fontSize: '40px', lineHeight: '40px' }}
         >
-          ×
+          x
         </button>
         <div className="h-full flex flex-col items-center justify-center">
-          <h2 className="text-black text-[36px] font-normal font-barlow text-center mb-6">
+          <h2 className="text-black text-[36px] font-normal text-center mb-6">
             BE THE FIRST TO KNOW WHEN WE GO LIVE
           </h2>
           <input
