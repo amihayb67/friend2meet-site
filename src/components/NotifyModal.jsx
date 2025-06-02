@@ -10,7 +10,8 @@ const NotifyModal = ({ onClose }) => {
     setTimeout(() => setIsVisible(true), 50); // Trigger transition after mount
   }, []);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (emailRegex.test(email)) {
       setSubmitted(true);
@@ -20,6 +21,17 @@ const NotifyModal = ({ onClose }) => {
       setSubmitted(false);
     }
   };
+  
+  // const handleSubmit = () => {
+  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   if (emailRegex.test(email)) {
+  //     setSubmitted(true);
+  //     setError('');
+  //   } else {
+  //     setError('Please type a correct valid email');
+  //     setSubmitted(false);
+  //   }
+  // };
 
   const handleOverlayClick = (e) => {
     if (e.target.id === 'notify-modal-overlay') {
@@ -55,10 +67,20 @@ const NotifyModal = ({ onClose }) => {
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            title={error || ''} // native tooltip
+            className={`border px-4 py-2 text-sm font-light font-opensanscond tracking-wide focus:outline-none ${
+              error ? 'border-red-500' : 'border-gray-400'
+            }`}
+          />
+{/*           <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className={`w-[300px] p-2 mb-4 text-center border ${
               error ? 'border-red-500' : 'border-gray-300'
             } rounded text-black`}
-          />
+          /> */}
           <button
             onClick={handleSubmit}
             className="w-[300px] py-2 bg-[#1a1a1a] text-white hover:bg-[#333] transition-colors duration-300"
