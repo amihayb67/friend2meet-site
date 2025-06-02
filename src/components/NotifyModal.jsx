@@ -52,6 +52,7 @@ const NotifyModal = ({ onClose }) => {
             BE THE FIRST TO KNOW WHEN WE GO LIVE
           </h2>
 
+          <div className="relative inline-block">
           <input
             type="email"
             placeholder="Enter your email"
@@ -62,6 +63,12 @@ const NotifyModal = ({ onClose }) => {
               error ? 'border-red-500' : 'border-gray-300'
             } rounded text-black`}
           />
+          {error && (
+            <div className="absolute mt-[-30px] text-sm bg-red-600 text-white px-2 py-1 rounded shadow-lg z-10">
+              {error}
+            </div>
+          )}
+          </div>
           
 {/*           <input
             type="email"
