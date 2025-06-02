@@ -1,62 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const NotifyModal = ({ onClose }) => {
   const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
+  const [isVisible, setIsVisible] = useState(false);
 
-  const validateEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setMessage('');
   };
 
   const handleSubmit = () => {
-    if (validateEmail(email)) {
-      setSubmitted(true);
-      setError('');
-      // TODO: Add actual submission logic
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailRegex.test(email)) {
+      setMessage('Thanks for submitting!');
+      // You can trigger backend logic here
     } else {
-      setError('Please type a correct valid email');
+      setMessage('Please type a correct valid email');
+    }
+  };
+
+  const handleClickOutside = (e) => {
+    if (e.target.id === 'notify-modal-overlay') {
+      onClose();
     }
   };
 
   return (
     <div
-      className="fixed top-0 right-0 h-full w-[480px] bg-[#2d3e50] z-50 shadow-lg transition-transform duration-500"
-      style={{ transform: 'translateX(0%)' }}
+      id="notify-modal-overlay"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+      onClick={handleClickOutside}
     >
       <div
-        className="absolute top-0 left-0 w-screen h-screen bg-black bg-opacity-50"
-        onClick={onClose}
-      ></div>
-
-      <div className="flex flex-col items-center justify-center h-full px-8 relative z-10">
+        className={`bg-[#94B0DC] text-black p-8 rounded-md shadow-md w-[600px] h-auto flex flex-col items-center justify-center transition-transform duration-1000 transform ${isVisible ? 'translate-x-0' : 'translate-x-full'}`}
+      >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-white text-2xl"
+          className="absolute top-4 right-4 text-black"
+          style={{ width: '20px', height: '20px' }}
         >
           ×
         </button>
-        <h2 className="text-white text-3xl font-bold mb-8 text-center">
+        <h2 className="text-3xl font-semibold mb-6 text-center">
           BE THE FIRST TO KNOW WHEN WE GO LIVE
         </h2>
         <input
           type="email"
-          placeholder="Enter your email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-[224px] px-4 py-2 mb-4 border border-gray-300 rounded text-black"
+          onChange={handleEmailChange}
+          placeholder="Your email"
+          className="px-4 py-2 mb-4 w-[300px] text-black"
         />
         <button
           onClick={handleSubmit}
-          className="w-[224px] bg-[#9abee3] text-black py-2 rounded hover:bg-[#41566b] hover:text-white transition-colors"
+          className="bg-[#1a1a1a] text-white px-6 py-2 w-[300px]"
         >
           Sign Up!
         </button>
-        {submitted && (
-          <p className="text-green-400 text-sm mt-4">Thanks for submitting!</p>
-        )}
-        {error && (
-          <p className="text-red-500 text-sm mt-4">{error}</p>
+        {message && (
+          <p className="text-sm mt-4 text-center" style={{ minHeight: '20px' }}>{message}</p>
         )}
       </div>
     </div>
