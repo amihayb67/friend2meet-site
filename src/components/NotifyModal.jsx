@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const NotifyModal = ({ onClose }) => {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const modalRef = useRef(null);
 
   const handleOverlayClick = (e) => {
     if (e.target.id === 'notify-modal-overlay') {
@@ -20,8 +21,7 @@ const NotifyModal = ({ onClose }) => {
     }
     setSubmitted(true);
     setError('');
-    // Here you could call an API or email service
-    console.log('Submitted email:', email);
+    console.log('Submitted email:', email); // replace with API call
   };
 
   useEffect(() => {
@@ -39,7 +39,8 @@ const NotifyModal = ({ onClose }) => {
       onClick={handleOverlayClick}
     >
       <div
-        className="bg-white text-black w-[400px] max-w-full h-full p-10 flex flex-col justify-center transition-transform duration-300 shadow-xl"
+        ref={modalRef}
+        className="bg-[#f3f6f9] text-black w-[600px] max-w-full h-full p-10 flex flex-col justify-center transform transition-transform duration-500 ease-out translate-x-0 shadow-xl"
         style={{
           boxShadow: '0 0 30px rgba(0,0,0,0.5)',
         }}
