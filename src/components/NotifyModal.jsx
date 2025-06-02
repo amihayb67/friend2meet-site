@@ -42,7 +42,7 @@ const NotifyModal = ({ onClose }) => {
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-black"
-          style={{ width: '20px', height: '20px', fontSize: '20px', lineHeight: '20px' }}
+          style={{ width: '40px', height: '40px', fontSize: '40px', lineHeight: '40px' }}
         >
           ×
         </button>
