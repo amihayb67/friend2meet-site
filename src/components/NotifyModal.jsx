@@ -1,80 +1,79 @@
 import React, { useState, useEffect } from 'react';
 
-const NotifyModal = ({ onClose }) => {
+export default function NotifyModal({ onClose }) {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => setIsVisible(true), 50); // Trigger transition after mount
-  }, []);
 
   const handleSubmit = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailRegex.test(email)) {
-      setSubmitted(true);
-      setError('');
-    } else {
+    if (!emailRegex.test(email)) {
       setError('Please type a correct valid email');
-      setSubmitted(false);
+      return;
     }
+    setError('');
+    setSubmitted(true);
+    // Email sending logic goes here
   };
 
   const handleOverlayClick = (e) => {
-    if (e.target.id === 'notify-modal-overlay') {
+    if (e.target.id === 'overlay') {
       onClose();
     }
   };
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
   return (
     <div
-      id="notify-modal-overlay"
+      id="overlay"
+      className="fixed inset-0 bg-black bg-opacity-40 z-50"
       onClick={handleOverlayClick}
-      className="fixed inset-0 bg-black bg-opacity-50 z-50 flex"
     >
       <div
-        className={`h-full w-[600px] bg-[#94B0DC] p-8 relative transition-transform duration-1000 ease-in-out transform ${
-          isVisible ? 'translate-x-0' : 'translate-x-full'
-        }`}
-        style={{ marginLeft: 'auto' }}
+        className="fixed right-0 top-0 h-full shadow-lg p-8 flex flex-col items-center justify-center transition-transform duration-1000 ease-in-out"
+        style={{ width: '600px', backgroundColor: '#76A1D6', transform: 'translateX(0)' }}
       >
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-black"
-          style={{ width: '20px', height: '20px', fontSize: '20px', lineHeight: '20px' }}
+          style={{ width: '20px', height: '20px', fontSize: '20px' }}
         >
           ×
         </button>
-        <div className="h-full flex flex-col items-center justify-center">
-          <h2 className="text-white text-[36px] font-semibold text-center mb-6">
-            BE THE FIRST TO KNOW WHEN WE GO LIVE
-          </h2>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className={`w-[300px] p-2 mb-4 text-center border ${
-              error ? 'border-red-500' : 'border-gray-300'
-            } rounded text-black`}
-          />
-          <button
-            onClick={handleSubmit}
-            className="w-[300px] py-2 bg-[#1a1a1a] text-white hover:bg-[#333] transition-colors duration-300"
-          >
-            Sign Up!
-          </button>
-          {submitted && (
-            <p className="text-white mt-4">Thanks for submitting!</p>
-          )}
-          {error && (
-            <p className="text-red-500 mt-4">{error}</p>
-          )}
-        </div>
+        <h2
+          className="text-center mb-6"
+          style={{ fontSize: '28px', fontWeight: '400', color: 'black' }}
+        >
+          BE THE FIRST TO KNOW WHEN WE GO LIVE
+        </h2>
+        <input
+          type="email"
+          placeholder="Enter your email"
+          className="p-2 mb-4"
+          style={{ width: '300px' }}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <button
+          onClick={handleSubmit}
+          className="py-2"
+          style={{ width: '300px', backgroundColor: '#1a1a1a', color: 'white', fontWeight: 300 }}
+        >
+          Sign Up!
+        </button>
+        {error && (
+          <p className="text-red-600 mt-4" style={{ width: '300px', textAlign: 'center' }}>{error}</p>
+        )}
+        {submitted && !error && (
+          <p className="text-white mt-4" style={{ width: '300px', textAlign: 'center' }}>Thanks for submitting!</p>
+        )}
       </div>
     </div>
   );
-};
-
-export default NotifyModal;
+}
